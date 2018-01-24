@@ -15,13 +15,17 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('avatar')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
