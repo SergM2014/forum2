@@ -16,7 +16,7 @@ class CreateResponsesTable extends Migration
         Schema::create('responses', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id');
-            $table->integer('topic_id')->unsigned();
+            $table->integer('topic_id')->unsigned()->index();
             $table->text('response');
             $table->enum('published', ['0','1']);
             $table->enum('changed', ['0', '1']);
