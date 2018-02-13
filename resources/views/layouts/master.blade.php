@@ -22,7 +22,7 @@
 
     </div>
 
-@include('footer')
+@include('custom.partials.footer')
 
 </body>
 </html>

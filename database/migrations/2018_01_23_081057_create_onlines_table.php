@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOnlineTable extends Migration
+class CreateOnlinesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOnlineTable extends Migration
      */
     public function up()
     {
-        Schema::create('online', function (Blueprint $table) {
+        Schema::create('onlines', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ip');
             $table->timestamps();
