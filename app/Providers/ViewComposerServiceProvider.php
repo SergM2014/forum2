@@ -17,6 +17,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('custom.partials.footer', function($view){
             $view->with('visitorsNumber', Online::countUnregisrteredVisitors());
         });
+
+        view()->composer('custom.partials.footer', function($view){
+            $view->with('membersNumber', Online::countMembers());
+        });
     }
 
     /**

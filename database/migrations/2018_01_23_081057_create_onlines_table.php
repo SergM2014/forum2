@@ -15,7 +15,8 @@ class CreateOnlinesTable extends Migration
     {
         Schema::create('onlines', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ip');
+            $table->ipAddress('ip');
+            $table->boolean('member')->default(false);
             $table->timestamps();
         });
     }
