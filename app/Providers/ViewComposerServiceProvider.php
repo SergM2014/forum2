@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+
 use Illuminate\Support\ServiceProvider;
 use App\Online;
+use App\Response;
+use App\Member;
+use App\Background;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -19,7 +23,23 @@ class ViewComposerServiceProvider extends ServiceProvider
         });
 
         view()->composer('custom.partials.footer', function($view){
-            $view->with('membersNumber', Online::countMembers());
+            $view->with('onlineMembersNumber', Online::countMembers());
+        });
+
+        view()->composer('custom.partials.footer', function($view){
+            $view->with('responsesNumber', Response::count());
+        });
+
+        view()->composer('custom.partials.footer', function($view){
+            $view->with('membersNumber', Response::count());
+        });
+
+        view()->composer('custom.partials.footer', function($view){
+            $view->with('lastMember', Member::latest()->first());
+        });
+
+        view()->composer('custom.partials.footer', function($view){
+            $view->with('visitsRecord', Background::first());
         });
     }
 

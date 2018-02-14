@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOnlinesTable extends Migration
+class CreateBackgroundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateOnlinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('onlines', function (Blueprint $table) {
+        Schema::create('backgrounds', function (Blueprint $table) {
             $table->increments('id');
-            $table->ipAddress('ip');
-            $table->boolean('member')->default(false);
+            $table->integer('visits_record');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateOnlinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('onlines');
+        Schema::dropIfExists('backgrounds');
     }
 }
