@@ -1,13 +1,17 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Topic;
 
 $factory->define(App\Response::class, function (Faker $faker) {
+
+    $topicIds = Topic::all()->pluck('id')->toArray();
+
     return [
-        'parent_id' =>0,
-        'topic_id '=> $faker->numberBetween($min = 1, $max = 10),
-        'response' => $faker->paragraphs,
-        'published' => '1',
-        'changed' =>'0',
+        'parent_id' =>$faker->numberBetween($min = 0, $max = 20),
+        'topic_id' => $faker->randomElement($topicIds),
+        'response' => $faker->paragraph,
+        'published' => "1",
+        'changed' =>"0",
     ];
 });

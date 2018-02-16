@@ -21,7 +21,7 @@
 
 
  @if ($visitsRecord)
-  <h4>Visits Record Number:{{ $visitsRecord->visits_recort }}  Time:{{ $visitsRecort->added_at }} </h4>
+  <h4>Visits Record Number:{{ $visitsRecord->visits_record }}  Time:{{ $visitsRecort->added_at }} </h4>
 
   @endif
 

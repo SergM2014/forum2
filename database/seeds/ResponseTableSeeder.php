@@ -11,6 +11,6 @@ class ResponseTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Response::class, 500)->create();
     }
 }
