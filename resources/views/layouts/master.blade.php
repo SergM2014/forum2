@@ -20,6 +20,8 @@
             Laravel Master template
          </div>
 
+        @yield('content')
+
     </div>
 
 @include('custom.partials.footer')
