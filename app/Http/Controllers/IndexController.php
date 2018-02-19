@@ -15,7 +15,7 @@ class IndexController extends Controller
     public function index()
     {
         DB::unprepared(
-            DB::raw("CREATE TEMPORARY TABLE `responses2` SELECT `id`, `parent_id`, `topic_id`, `response`, `published`, 
+            DB::raw("CREATE TEMPORARY TABLE `responses2` SELECT `id`, `parent_id`, `topic_id`, `member_id`, `response`, `published`, 
                     `changed`, `created_at`, `updated_at`
                   FROM `responses`  ORDER BY `created_at` DESC ")
         );
@@ -24,8 +24,9 @@ class IndexController extends Controller
         $raws = DB::table('categories')
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
+            ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
             ->select('categories.id', 'categories.parent_id',  'categories.title', 'categories.eng_title',
-                 'responses2.created_at', DB::raw(' responses2.response AS last_response, COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)
+                 'responses2.created_at', 'members.name', DB::raw(' responses2.response AS last_response, COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)
                  AS responses_number'))
             ->groupBy('categories.id')
             ->get();
