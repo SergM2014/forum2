@@ -25,7 +25,7 @@ class IndexController extends Controller
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
             ->select('categories.id', 'categories.parent_id',  'categories.title', 'categories.eng_title',
-                'responses2.response', 'responses2.created_at', DB::raw('COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)
+                 'responses2.created_at', DB::raw(' responses2.response AS last_response, COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)
                  AS responses_number'))
             ->groupBy('categories.id')
             ->get();

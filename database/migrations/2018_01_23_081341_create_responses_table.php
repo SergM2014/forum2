@@ -17,6 +17,7 @@ class CreateResponsesTable extends Migration
             $table->increments('id');
             $table->integer('parent_id');
             $table->integer('topic_id')->unsigned()->index();
+            $table->integer('member_id')->unsigned()->index();
             $table->text('response');
             $table->enum('published', ['0','1']);
             $table->enum('changed', ['0', '1']);
@@ -24,6 +25,10 @@ class CreateResponsesTable extends Migration
 
             $table->foreign('topic_id')
                 ->references('id')->on('topics')
+                ->onDelete('cascade');
+
+            $table->foreign('member_id')
+                ->references('id')->on('members')
                 ->onDelete('cascade');
         });
     }

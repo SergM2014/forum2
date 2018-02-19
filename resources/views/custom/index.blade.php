@@ -5,5 +5,10 @@
     <h1>That is main index content</h1>
 
 
-    <?php dump($raws) ?>
+
+    @foreach ($raws as $raw)
+
+        <?php dump($raw) ?>
+
+    @endforeach
 @endsection
