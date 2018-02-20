@@ -7,24 +7,25 @@
 
     <title>Laravel</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 
 </head>
 <body>
 
     <div class="content">
 
-        <div class="title m-b-md">
-            Laravel Master template
-         </div>
+
+        <h1> Laravel Master template </h1>
+
 
         @yield('content')
 
     </div>
 
 @include('custom.partials.footer')
+
+
+<script src="{{ mix('/js/app.js') }}"></script>
 
 </body>
 </html>
