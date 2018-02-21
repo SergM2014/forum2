@@ -26,10 +26,12 @@ class IndexController extends Controller
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
             ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
             ->select('categories.id', 'categories.parent_id',  'categories.title', 'categories.eng_title',
-                 'responses2.created_at', 'members.name', DB::raw(' responses2.response AS last_response, COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)
-                 AS responses_number'))
+                  DB::raw(' responses2.response AS last_response,
+                  COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
+                   responses2.created_at AS response_added_at, members.name AS creator_name'))
             ->groupBy('categories.id')
-            ->get();
+           // ->get();
+        ->paginate(10);
 
         DB::unprepared(
             DB::raw(" DROP TABLE IF EXISTS responses2 ; ")

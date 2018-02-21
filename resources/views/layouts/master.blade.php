@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
     <title>Laravel</title>
 
@@ -12,7 +13,7 @@
 </head>
 <body>
 
-    <div class="content">
+    <div  class="container">
 
 
         <h1> Laravel Master template </h1>
@@ -20,10 +21,11 @@
 
         @yield('content')
 
+
+        @include('custom.partials.footer')
+
+
     </div>
-
-@include('custom.partials.footer')
-
 
 <script src="{{ mix('/js/app.js') }}"></script>
 
