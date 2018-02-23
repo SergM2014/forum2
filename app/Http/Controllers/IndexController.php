@@ -25,7 +25,7 @@ class IndexController extends Controller
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
             ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
-            ->select('categories.id', 'categories.parent_id',  'categories.title', 'categories.eng_title',
+            ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title', 'categories.eng_title',
                   DB::raw(' responses2.response AS last_response,
                   COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
                    responses2.created_at AS response_added_at, members.name AS creator_name'))
@@ -37,7 +37,9 @@ class IndexController extends Controller
             DB::raw(" DROP TABLE IF EXISTS responses2 ; ")
         );
 
-        return view('custom.index', compact ('raws'));
+        $counter = ((@(int)$_GET['page']?? 1)-1)*10;
+
+        return view('custom.index', compact ('raws', 'counter'));
     }
 
     /**
