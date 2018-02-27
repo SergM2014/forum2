@@ -14,6 +14,8 @@ class IndexController extends Controller
      */
     public function index()
     {
+
+
         DB::unprepared(
             DB::raw("CREATE TEMPORARY TABLE `responses2` SELECT `id`, `parent_id`, `topic_id`, `member_id`, `response`, `published`, 
                     `changed`, `created_at`, `updated_at`
@@ -28,16 +30,16 @@ class IndexController extends Controller
             ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title', 'categories.eng_title',
                   DB::raw(' responses2.response AS last_response,
                   COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
-                   responses2.created_at AS response_added_at, members.name AS creator_name'))
+                   responses2.created_at AS response_added_at, members.name AS creator_name, responses2.id AS response_id, members.id AS creator_id'))
             ->groupBy('categories.id')
-           // ->get();
-        ->paginate(10);
+            ->get();
+
 
         DB::unprepared(
             DB::raw(" DROP TABLE IF EXISTS responses2 ; ")
         );
 
-        $counter = ((@(int)$_GET['page']?? 1)-1)*10;
+        $counter = (($_GET['page']?? 1)-1)*10;
 
         return view('custom.index', compact ('raws', 'counter'));
     }
