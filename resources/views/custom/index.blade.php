@@ -6,7 +6,6 @@
     <h2 class="text-center text-danger">Categories</h2>
 
 
-
     <div class="table-responsive">
 
         <table class="table table-hover table-striped">
@@ -71,7 +70,6 @@
 
     </div>
 
-    {{--{{ $raws->links() }}--}}
 
 
 @endsection

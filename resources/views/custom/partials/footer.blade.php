@@ -1,28 +1,31 @@
 
+<footer >
+ <h3 class="text-center">this is footer</h3>
+ <div class="row">
 
- <h2>this is footer</h2>
+   <div class="col-sm-4">
+    <h4>Visitors Block</h4>
 
-<div>
- <h3>Visitors Block</h3>
+    <h5>Online Visitors Number: {{ $visitorsNumber }}</h5>
+    <h5>Online Members Number: {{ $onlineMembersNumber }}</h5>
+   </div>
 
- <h4> Online Visitors Number: {{ $visitorsNumber }}</h4>
- <h4>Online Members Number: {{ $onlineMembersNumber }}</h4>
-</div>
+   <div class="col-sm-4">
+    <h4>Statistic Block</h4>
 
-<div>
- <h3>Statistic Block</h3>
+    <h5>Responses Number: {{ $responsesNumber }}</h5>
+    <h5>Members number: {{ $membersNumber }}</h5>
 
-<h4>Responses Number: {{ $responsesNumber }}</h4>
- <h4>Members number: {{ $membersNumber }}</h4>
-
- @if($lastMember)
-   <h4>Latast  register Member: {{ $lastMember->name }}</h4>
-@endif
+    @if($lastMember)
+      <h5>Latast  register Member: {{ $lastMember->name }}</h5>
+    @endif
 
 
- @if ($visitsRecord)
-  <h4>Visits Record Number:{{ $visitsRecord->visits_record }}  Time:{{ $visitsRecort->added_at }} </h4>
+    @if ($visitsRecord)
+     <h5>Visits Record Number:{{ $visitsRecord->visits_record }}  Time:{{ $visitsRecort->added_at }} </h5>
 
-  @endif
+     @endif
 
-</div>
+   </div>
+ </div>
+</footer>
