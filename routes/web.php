@@ -15,7 +15,8 @@
 //    return view('welcome');
 //});
 
-Route::get('/', 'IndexController@index');
+Route::get('/', 'CategoryController@all');
+Route::get('/category/{category}', 'CategoryController@show');
 
 
 

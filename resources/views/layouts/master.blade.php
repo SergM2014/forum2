@@ -16,7 +16,7 @@
     <div  class="container">
 
 
-        <h1> Laravel Master template </h1>
+          <h1 class="text-center text-danger"> Laravel Master template </h1>
 
 
         @yield('content')
