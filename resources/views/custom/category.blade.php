@@ -3,6 +3,13 @@
 @section('content')
 
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Main</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Category</li>
+        </ol>
+    </nav>
+
     <h2 class="text-center text-danger">Category</h2>
 
     @if($subCategories->isNotEmpty())
@@ -108,6 +115,8 @@
 
         </tbody>
     </table>
+
+        {{ $topics->links('vendor.pagination.bootstrap-4') }}
 
     @else
 

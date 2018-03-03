@@ -110,8 +110,12 @@ class CategoryController extends Controller
                    members2.name AS starter_name, topics.member_id AS starter_id'))
             ->where('topics.category_id', $category->id)
             ->groupBy('topics.id')
-            ->get();
+            ->paginate(10);
 
+
+        DB::unprepared(
+            DB::raw(" DROP TABLE IF EXISTS members2 ; ")
+        );
 
         DB::unprepared(
             DB::raw(" DROP TABLE IF EXISTS responses2 ; ")
