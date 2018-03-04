@@ -60,9 +60,9 @@
 
                         <td>{{ $raw->topic_number }}</td>
                         <td>{{ $raw->responses_number }}</td>
-                        <td><p><a href="/response/{{ $raw->id }}">{{ $raw->last_response }}</a></p>
-                            <p><a href="/member/{{ $raw->creator_id }}">{{ $raw->creator_name }}</a></p>
-                            <p>{{ $raw->response_added_at }}</p>
+                        <td><p>Topic: <a href="/topic/{{ $raw->response_topic_id }}">{{ $raw->response_topic }}</a></p>
+                            <p>Creator: <a href="/member/{{ $raw->creator_id }}">{{ $raw->creator_name }}</a></p>
+                            <p>Added at: {{ $raw->response_added_at }}</p>
                         </td>
 
 

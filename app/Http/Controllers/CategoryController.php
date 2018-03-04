@@ -27,8 +27,9 @@ class CategoryController extends Controller
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
             ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
+            ->join('topics AS topics2', 'responses2.topic_id', '=', 'topics2.id')
             ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title', 'categories.eng_title',
-                  DB::raw(' responses2.response AS last_response,
+                   DB::raw(' topics2.title AS response_topic, topics2.id AS response_topic_id,
                   COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
                    responses2.created_at AS response_added_at, members.name AS creator_name, responses2.id AS response_id, members.id AS creator_id'))
             ->groupBy('categories.id')
@@ -86,8 +87,9 @@ class CategoryController extends Controller
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
             ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
+            ->join('topics AS topics2', 'responses2.topic_id', '=', 'topics2.id')
             ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title', 'categories.eng_title',
-                DB::raw(' responses2.response AS last_response,
+                DB::raw(' topics2.title AS response_topic, topics2.id AS response_topic_id,
                   COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
                    responses2.created_at AS response_added_at, members.name AS creator_name, responses2.id AS response_id, members.id AS creator_id'))
             ->where('categories.parent_id', $category->id)
