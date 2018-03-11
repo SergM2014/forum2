@@ -31,7 +31,7 @@
 
                 @if($raw->parent_id == 0)
                     <tr id="responseId_{{ $raw->id }}">
-                        <th scope="row">{{ ++$counter}}</th>
+                        <th scope="row">{{ @++$counter}}</th>
                         <td>{{ $raw->title }}</td>
 
                         <td>
@@ -40,16 +40,16 @@
                             <hr>
                             <br>
 
-                                <?php $count = 1; ?>
+                                <?php $subCategoryCounter = 1; ?>
                                 @foreach($raws as $child)
 
                                     @if( $raw->id == $child->parent_id)
 
-                                        @if($count == 1)
+                                        @if($subCategoryCounter == 1)
                                             <h4>Sub Categories:</h4>
                                         @endif
 
-                                        <?= $count++.')'; ?>
+                                        <?= $subCategoryCounter++.')'; ?>
                                          <a href="/category/{{ $child->id }}">{{  $child->title }}</a>
                                         <br>
                                     @endif
@@ -74,6 +74,7 @@
         </table>
 
     </div>
+    {{ $raws->links('vendor.pagination.bootstrap-4') }}
 
 
 

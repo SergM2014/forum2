@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryController extends Controller
 {
@@ -15,6 +16,13 @@ class CategoryController extends Controller
     public function all()
     {
 
+        $page = LengthAwarePaginator::resolveCurrentPage(config('app.categoriesPageString'));
+
+        $perPage = config('app.perPageCategories');
+        $total = DB::table('categories')
+            ->where('parent_id', 0)
+            ->count();
+
 
         DB::unprepared(
             DB::raw("CREATE TEMPORARY TABLE `responses2` SELECT `id`, `parent_id`, `topic_id`, `member_id`, `response`, `published`, 
@@ -23,26 +31,33 @@ class CategoryController extends Controller
         );
 
 
-        $raws = DB::table('categories')
+        $results = DB::table('categories')
             ->leftjoin('topics','categories.id', '=', 'topics.category_id')
             ->leftjoin('responses2','topics.id', '=',  'responses2.topic_id')
-            ->leftjoin('members', 'responses2.member_id', '=', 'members.id')
+            ->join('members', 'responses2.member_id', '=', 'members.id')
             ->join('topics AS topics2', 'responses2.topic_id', '=', 'topics2.id')
             ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title', 'categories.eng_title',
                    DB::raw(' topics2.title AS response_topic, topics2.id AS response_topic_id,
                   COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses2.id)  AS responses_number,
                    responses2.created_at AS response_added_at, members.name AS creator_name, responses2.id AS response_id, members.id AS creator_id'))
             ->groupBy('categories.id')
+            ->forPage($page, $perPage)
             ->get();
+        //->paginate(5);
 
 
         DB::unprepared(
             DB::raw(" DROP TABLE IF EXISTS responses2 ; ")
         );
 
-        $counter = (($_GET['page']?? 1)-1)*10;
+        $raws = new LengthAwarePaginator($results, $total, $perPage, $page, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(config('app.categoriesPageString')),
+        ]);
+        $raws ->setPageName(config('app.categoriesPageString'));
 
-        return view('custom.index', compact ('raws', 'counter'));
+
+
+        return view('custom.index', compact ('raws'));
     }
 
     /**

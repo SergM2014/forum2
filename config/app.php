@@ -229,4 +229,7 @@ return [
 
     ],
 
+    'perPageCategories' =>5,
+    'categoriesPageString' => 'categories_page'
+
 ];
