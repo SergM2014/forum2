@@ -11,77 +11,14 @@
     </nav>
 
     <h2 class="text-center text-danger">Category</h2>
-
-    @if($subCategories->isNotEmpty())
-    <h3 class="text-center text-info">Subcategories</h3>
+    <h3 class="text-center text-info">{{ $category->title }}</h3>
 
 
-        <div class="table-responsive">
+        @if($categories->isNotEmpty())
 
-            <table class="table table-hover table-striped">
-                <thead>
-                <tr class="bg-danger">
-                    <th scope="col" class="text-center">#</th>
-                    <th scope="col" class="text-center">Title</th>
-                    <th scope="col" class="text-center">Description</th>
-                    <th scope="col" class="text-center">Topic Numer</th>
-                    <th scope="col" class="text-center">Response Number</th>
-                    <th scope="col" class="text-center">Last Respose Info</th>
-                </tr>
-                </thead>
+            @include('custom.partials.categories')
 
-                <tbody>
-
-                @foreach ($subCategories as $raw)
-
-                    @if($raw->parent_id == $category->id)
-                        <tr id="responseId_{{ $raw->id }}">
-                            <th scope="row"><?=  @++$categoryCounter ?></th>
-                            <td>{{ $raw->title }}</td>
-
-                            <td>
-
-                                <a href="/category/{{ $raw->id }}">{{ $raw->description }}</a>
-                                <hr>
-                                <br>
-
-                                    <?php $count = 1; ?>
-                                    @foreach($subCategories as $child)
-
-                                        @if( $raw->id == $child->parent_id)
-
-                                            @if($count == 1)
-                                                <h4>Sub Categories:</h4>
-                                            @endif
-
-                                            <?= $count++.')'; ?>
-                                             <a href="/category/{{ $child->id }}">{{  $child->title }}</a>
-                                            <br>
-                                        @endif
-
-                                    @endforeach
-
-                            </td>
-
-                            <td>{{ $raw->topic_number }}</td>
-                            <td>{{ $raw->responses_number }}</td>
-
-                            <td><p>Topic: <a href="/topic/{{ $raw->response_topic_id }}">{{ $raw->response_topic }}</a></p>
-                                <p>Creator: <a href="/member/{{ $raw->creator_id }}">{{ $raw->creator_name }}</a></p>
-                                <p>Added at: {{ $raw->response_added_at }}</p>
-                            </td>
-
-
-                        </tr>
-                    @endif
-                @endforeach
-
-                </tbody>
-            </table>
-
-        </div>
-
-    @endif
+        @endif
 
     @if($topics->isNotEmpty())
 
@@ -102,9 +39,9 @@
             @foreach($topics as $topic)
 
                 <tr id="topicId_{{ $topic->id }}">
-                    <th scope="row"><?= ++$counter ?></th>
+                    <th scope="row"><?= ++$topicCounter ?></th>
                     <td>{{ $topic->title }}</td>
-                    <td><a href="/member/{{ $topic->starter_id }}">{{ $topic->starter_name }}</td>
+                    <td><a href="/member/{{ $topic->starter_id }}">{{ $topic->starter_name }}</a></td>
                     <td><p><a href="/response/{{ $topic->id }}">{{ $topic->last_response }}</a></p>
                         <p><a href="/member/{{ $topic->creator_id }}">{{ $topic->creator_name }}</a></p>
                         <p>{{ $topic->response_added_at }}</p>

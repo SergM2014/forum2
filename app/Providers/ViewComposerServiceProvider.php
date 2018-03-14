@@ -8,6 +8,7 @@ use App\Online;
 use App\Response;
 use App\Member;
 use App\Background;
+use App\Category;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,10 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         view()->composer('custom.partials.footer', function($view){
             $view->with('visitsRecord', Background::first());
+        });
+
+        view()->composer('custom.partials.categories', function($view){
+            $view->with('subCategories', Category::all());
         });
     }
 
