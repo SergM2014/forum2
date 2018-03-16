@@ -21,6 +21,8 @@
 
         @include('custom.partials.navigation')
 
+        @include('custom.partials.signInUp')
+
         @yield('content')
 
 
