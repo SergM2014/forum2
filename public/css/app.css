@@ -9994,3 +9994,9 @@ a.text-dark:focus {
   }
 }
 
+.response-block {
+  margin-bottom: 15px;
+  background-color: #eae3d8;
+  padding: 10px 0;
+}
+

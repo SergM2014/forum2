@@ -9,4 +9,10 @@ class Member extends Model
     protected $fillable = [
         'user_id', 'avatar', 'name', 'email', 'password', 'remember_token'
     ];
+
+    public function responses()
+    {
+        return $this->hasMany('App\Response');
+    }
+
 }

@@ -18,6 +18,8 @@
 Route::get('/', 'CategoryController@all');
 Route::get('/category/{category}', 'CategoryController@show');
 
+Route::get('/topic/{topic}', 'TopicController@show');
+
 
 
 
