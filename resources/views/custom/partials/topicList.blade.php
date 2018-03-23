@@ -6,7 +6,7 @@
             <li class="list-group-item  border border-secondary rounded">
                 <div class="row response-block " data-response-id="{{ $response->id }}">
                     <div class="col-2">
-                        <p class="font-weight-bold">{{ $response->name }}</p>
+                        <p class="font-weight-bold">{{ $response->members->name }}</p>
                         <p class="text-lowercase">{{ $response->created_at }}</p>
                     </div>
                     <div class="col-10">
