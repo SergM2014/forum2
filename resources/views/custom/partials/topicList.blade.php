@@ -4,7 +4,13 @@
         @if($response->parent_id == $parentId)
 
             <li class="list-group-item  border border-secondary rounded">
-                <div class="row response-block " data-response-id="{{ $response->id }}">
+                <div class="row response-block " data-response-id="{{ $response->id }}"
+                @if(@$responseId == $response->id)
+                id="scrollToResponse"> <a name="show"></a>
+                        @else
+                >
+                    @endif
+
                     <div class="col-2">
                         <p class="font-weight-bold">{{ $response->members->name }}</p>
                         <p class="text-lowercase">{{ $response->created_at }}</p>
@@ -18,6 +24,8 @@
                 </div>
 
 
+
+
                 @foreach($responses as $subResponse)
 
                     @if($subResponse->parent_id == $response->id)
@@ -29,10 +37,7 @@
 
                 @if(@$flag)
 
-
                         @include('custom.partials.topicList', [ 'parentId' => $response->id])
-
-
 
                 @endif
 

@@ -32,6 +32,7 @@
     </div>
 
 <script src="{{ mix('/js/app.js') }}"></script>
+<script src="/js/test.js?ver=<?= time() ?>"></script>
 
 </body>
 </html>

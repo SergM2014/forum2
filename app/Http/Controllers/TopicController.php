@@ -19,9 +19,6 @@ class TopicController extends Controller
         $parentId = $responses->pluck('parent_id')->min();
 
 
-
-
-
         return view('custom.topic', compact('topic', 'responses', 'parentId'));
     }
 }
