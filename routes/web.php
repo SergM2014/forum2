@@ -21,6 +21,7 @@ Route::get('/category/{category}', 'CategoryController@show');
 Route::get('/topic/{topic}', 'TopicController@show');
 
 Route::get('/response/{response}', 'ResponseController@show');
+Route::get('/member/{member}', 'MemberController@show');
 
 
 

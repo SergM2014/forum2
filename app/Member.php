@@ -15,4 +15,9 @@ class Member extends Model
         return $this->hasMany('App\Response');
     }
 
+    public function topics()
+    {
+        return $this->hasMany('App\Topic');
+    }
+
 }

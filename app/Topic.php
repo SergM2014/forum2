@@ -20,6 +20,11 @@ class Topic extends Model
         return $this->hasMany('App\Response');
     }
 
+    public function members()
+    {
+        return $this->belongsTo('App\Member', 'member_id');
+    }
+
 
     public static function getTopics($categoryId)
     {
