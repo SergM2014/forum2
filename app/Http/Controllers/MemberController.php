@@ -32,7 +32,7 @@ class MemberController extends Controller
             'password_confirmation' => 'required|min:6'
         ]);
 
-        //var_dump($request->all());
+
         $member = new Member();
         if(!is_null($request->imageData)) $member->avatar = $request->imageData;
         $member->name = $request->login;
@@ -41,7 +41,17 @@ class MemberController extends Controller
         $member->remember_token = str_random(16);
         $member->save();
 
+        session(['member' => $request->login]);
+
         return view('custom.member.added');
+
+    }
+
+    public function leave(Request $request)
+    {
+        $request->session()->forget('member');
+
+         return redirect('/');
 
     }
 
