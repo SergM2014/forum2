@@ -22,8 +22,16 @@ Route::get('/topic/{topic}', 'TopicController@show');
 
 Route::get('/response/{response}', 'ResponseController@show');
 Route::get('/member/{member}', 'MemberController@show');
+Route::get('/signUp', 'MemberController@create');
+Route::post('/member/store', 'MemberController@store');
+
+Route::post('/images/uploadAvatar', 'ImagesController@uploadAvatar');
+Route::post('/images/deleteAvatar', 'ImagesController@deleteAvatar');
 
 
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

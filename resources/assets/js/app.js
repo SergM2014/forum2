@@ -21,5 +21,13 @@ const app = new Vue({
     el: '#app'
 });
 
+document.body.addEventListener('keyup', function(e){
+
+    if(e.target.classList.contains('form-control')){
+        e.target.classList.remove('is-invalid')
+    }
+
+});
+
 
 

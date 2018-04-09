@@ -10006,3 +10006,17 @@ a.text-dark:focus {
   margin-top: 15px;
 }
 
+.registration-form {
+  min-width: 400px;
+}
+
+.custom_thumbnail {
+  height: 150px;
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.add-image-container {
+  min-width: 300px;
+}
+
