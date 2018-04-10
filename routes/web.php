@@ -23,8 +23,10 @@ Route::get('/topic/{topic}', 'TopicController@show');
 Route::get('/response/{response}', 'ResponseController@show');
 Route::get('/member/exit',  'MemberController@leave');
 Route::post('/member/store', 'MemberController@store');
+Route::post('/member/login', 'MemberController@login');
 Route::get('/member/{member}', 'MemberController@show');
 Route::get('/signUp', 'MemberController@create');
+Route::get('/signIn', 'MemberController@signIn');
 
 
 

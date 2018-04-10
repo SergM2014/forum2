@@ -56,4 +56,36 @@ class MemberController extends Controller
     }
 
 
+    public function signIn(Request $request)
+    {
+
+
+        return view('custom.member.signIn');
+    }
+
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'login' => 'required|min:6',
+            'password' => 'required|min:6',
+
+        ]);
+
+        $member = Member::where('name', $request->login)->first();
+        if($member){
+            $hash = $member->password;
+            $password = $request->password;
+            if(password_verify($password, $hash)) {
+                session(['member' => $member->name ]);
+                return view('custom.member.signedIn');
+            }
+        }
+
+
+        return back()->withErrors(['login' =>'probably login doesnot match', 'password'=> 'probably password doesnot match']);
+
+    }
+
+
 }
