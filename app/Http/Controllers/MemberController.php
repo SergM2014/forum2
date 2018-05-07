@@ -77,7 +77,7 @@ class MemberController extends Controller
             $hash = $member->password;
             $password = $request->password;
             if(password_verify($password, $hash)) {
-                session(['member' => $member->name ]);
+                session(['member' => $member->name , 'memberId'=>$member->id]);
                 return view('custom.member.signedIn');
             }
         }
