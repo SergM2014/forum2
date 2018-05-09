@@ -30,6 +30,7 @@
 
 
         @if(session('member'))
+            <small>You are signed as: </small> <span class="badge badge-danger"><?= session('member') ?></span>
             <a class="nav-link" href="/member/{{ session('memberId') }}/edit">Edit my profile</a>/
             <a class="nav-link" href="/member/exit">Exit</a>
         @endif

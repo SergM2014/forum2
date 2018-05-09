@@ -96,13 +96,10 @@ class MemberController extends Controller
     public function update(Request $request)
     {
 
-//dd($request);
-
         $request->validate([
             'login' => 'required|min:6|unique:members,name',
             'email' => 'required|email|email',
             'password' => 'confirmed',
-
         ]);
 
 
@@ -111,11 +108,9 @@ class MemberController extends Controller
         $member->name = $request->login;
         $member->email = $request->email;
          if(isset($request->password))    $member->password = bcrypt($request->password);
- //      $member->remember_token = str_random(16);
-       $member->save();
-//
 
-//
+       $member->save();
+
         return view('custom.member.updated');
     }
 

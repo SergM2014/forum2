@@ -4,7 +4,7 @@
 
 
 
-@include('custom.partials.uploadImage', ['imageCustomType' => 'avatar', 'storedImage' => $member->avatar])
+@include('custom.partials.uploadImage', ['imageCustomType' => 'avatar', 'storedImage' => $member->avatar?? 'noavatar.jpg'])
 
 <div class="row justify-content-center">
 
