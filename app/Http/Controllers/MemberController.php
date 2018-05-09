@@ -50,6 +50,7 @@ class MemberController extends Controller
     public function leave(Request $request)
     {
         $request->session()->forget('member');
+        $request->session()->forget('memberId');
 
          return redirect('/');
 
@@ -85,6 +86,37 @@ class MemberController extends Controller
 
         return back()->withErrors(['login' =>'probably login doesnot match', 'password'=> 'probably password doesnot match']);
 
+    }
+
+    public function edit(Member $member)
+    {
+        return view('custom.member.edit', compact('member'));
+    }
+
+    public function update(Request $request)
+    {
+
+//dd($request);
+
+        $request->validate([
+            'login' => 'required|min:6|unique:members,name',
+            'email' => 'required|email|email',
+            'password' => 'confirmed',
+
+        ]);
+
+
+        $member =  Member::find($request->id);
+        $member->avatar = $request->imageData;
+        $member->name = $request->login;
+        $member->email = $request->email;
+         if(isset($request->password))    $member->password = bcrypt($request->password);
+ //      $member->remember_token = str_random(16);
+       $member->save();
+//
+
+//
+        return view('custom.member.updated');
     }
 
 

@@ -3,7 +3,8 @@
 
 
     <div class="add-image-container">
-        <img src='<?= asset("storage/uploads/avatars/")?><?= is_null(old('imageData')) ?  '/noavatar.jpg' : '/'.old('imageData') ?>' alt="" id="downloadImagePreview"
+
+        <img src='<?= asset("storage/uploads/avatars/")?><?= array_has( old(),'imageData') ?  '/'.old('imageData') : '/'.$storedImage ?>' alt="" id="downloadImagePreview"
              class="img-thumbnail custom_thumbnail">
 
         <span id="imageDownloadOutput" class="alert alert-success d-none"></span>
