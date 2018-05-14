@@ -19,3 +19,5 @@
         @endif
     </div>
 </div>
+
+<ul data-parent-id="{{ $response->id }}" class="responseList"></ul>

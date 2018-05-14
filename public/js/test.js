@@ -28,6 +28,8 @@ document.body.addEventListener('click', function(e){
 
     if(e.target.id === "addCustomResponse") {
 
+        if(document.getElementById('alert')) document.getElementById('alert').remove();
+
         let formData = new FormData(document.getElementById('addResponse'));
 
         axios({
@@ -56,7 +58,7 @@ document.body.addEventListener('click', function(e){
 
                             });
 
-                    alertWithClose('warning', response.data.message);
+                    alertWithClose('success', response.data.message);
 
                     //clearfy addresponse form
                     document.querySelector('#addResponseText').value = '';

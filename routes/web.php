@@ -31,9 +31,14 @@ Route::get('/member/{member}/edit', 'MemberController@edit');
 Route::post('/member/{member}/update', 'MemberController@update');
 Route::get('/signUp', 'MemberController@create');
 Route::get('/signIn', 'MemberController@signIn');
-Route::post('/response/store', 'ResponseController@store');
-Route::post('/response/showAjaxAdded', 'ResponseController@showAjaxAdded');
-Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
+
+Route::group(['middleware' => 'member'], function () {
+
+    Route::post('/response/store', 'ResponseController@store');
+    Route::post('/response/showAjaxAdded', 'ResponseController@showAjaxAdded');
+    Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
+
+});
 
 
 
