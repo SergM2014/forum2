@@ -36,5 +36,25 @@
 .add-image-container{
   min-width:300px;
 }
+.addResponse{
+  width:400px;
+  padding:5px;
+}
+.addResponseBlock{
+  max-width:800px;
+
+}
+
+.custom-alert{
+  position:fixed;
+  top: 30vh;
+  width: 80%;
+  z-index: 1000;
+  left: 10%;
+}
+
+.main-custom-container{
+  position:relative;
+}
 
 

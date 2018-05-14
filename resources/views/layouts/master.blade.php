@@ -14,7 +14,7 @@
 </head>
 <body>
 
-    <div  class="container" id="app">
+    <div  class="container main-custom-container" id="app">
 
 
           <h1 class="text-center text-danger"> Laravel Master template </h1>

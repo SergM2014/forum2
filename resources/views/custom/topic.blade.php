@@ -9,12 +9,18 @@
         </ol>
     </nav>
 
-    <h2 class="text-center text-info">Responses</h2>
+    <h2 class="text-center text-success">{{ $topic->title }}</h2>
+    <h3 class="text-center text-info">Responses</h3>
 
         @include('custom.partials.topicList')
 
 
+        @if(session('member'))
+
+            @include('custom.partials.addMemberResponse')
 
 
+
+        @endif
 
 @endsection('content')

@@ -20,6 +20,8 @@ Route::get('/category/{category}', 'CategoryController@show');
 
 Route::get('/topic/{topic}', 'TopicController@show');
 
+
+
 Route::get('/response/{response}', 'ResponseController@show');
 Route::get('/member/exit',  'MemberController@leave');
 Route::post('/member/store', 'MemberController@store');
@@ -29,6 +31,9 @@ Route::get('/member/{member}/edit', 'MemberController@edit');
 Route::post('/member/{member}/update', 'MemberController@update');
 Route::get('/signUp', 'MemberController@create');
 Route::get('/signIn', 'MemberController@signIn');
+Route::post('/response/store', 'ResponseController@store');
+Route::post('/response/showAjaxAdded', 'ResponseController@showAjaxAdded');
+Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
 
 
 

@@ -1,3 +1,15 @@
+function alertWithClose(level, message){
+    let alert = `<div id = "alert" class="alert alert-${level} alert-dismissible fade show custom-alert" role="alert">
+        <strong>${message}!</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>`;
+
+    document.querySelector('.main-custom-container').insertAdjacentHTML('afterBegin', alert);
+    $('#alert').alert()
+}
+
 window.onload = function() {
 
 
@@ -8,4 +20,91 @@ window.onload = function() {
         location.hash = 'show'
 
     }
-}
+};
+
+
+document.body.addEventListener('click', function(e){
+
+
+    if(e.target.id === "addCustomResponse") {
+
+        let formData = new FormData(document.getElementById('addResponse'));
+
+        axios({
+            method: 'post',
+            url: '/response/store',
+
+            data: formData
+        })
+                .then(response => {
+
+                    let parentId = formData.get('parentId');
+
+                        axios({
+                            method: 'post',
+                            url: '/response/showAjaxAdded',
+                            data:{ id: response.data.responseId}
+                        })
+                            .then(response2 => {
+
+                                let li = document.createElement('li');
+                                li.className = "list-group-item  border border-secondary rounded";
+                                li.innerHTML = response2.data;
+
+                                document.querySelector(`[data-parent-id="${parentId}"]`).append(li)
+
+
+                            });
+
+                    alertWithClose('warning', response.data.message);
+
+                    //clearfy addresponse form
+                    document.querySelector('#addResponseText').value = '';
+                    document.querySelector('#parentId').value = "0";
+
+                })
+                .catch(error => {
+
+                    let errors = error.response.data.errors;
+
+                    for (let key in errors) {
+                        document.getElementById(key).classList.add('is-invalid')
+                    }
+                })
+
+
+    }
+
+
+
+    if(e.target.classList.contains('addMemberResponseBtn')){
+
+       let id = e.target.closest('.response-block').dataset.responseId;
+
+
+        document.querySelector('#addResponseTitle').innerText = "Comment given response";
+
+        document.querySelector('#parentId').value = id;
+
+
+        axios({
+            method: 'post',
+            url: '/response/showResponseToComment',
+            data:{ id: id}
+        })
+            .then(response => {
+                document.querySelector('#responseToComment').innerHTML = response.data;
+            })
+
+    }
+
+
+
+    if(e.target.id === "closeResponseToBeCommented"){
+
+        document.querySelector('#responseToComment').innerHTML = '';
+        document.querySelector('#addResponseTitle').innerText = "Add Response";
+        document.querySelector('#parentId').value = "0";
+    }
+
+});
