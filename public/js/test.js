@@ -30,6 +30,9 @@ document.body.addEventListener('click', function(e){
 
         if(document.getElementById('alert')) document.getElementById('alert').remove();
 
+
+
+
         let formData = new FormData(document.getElementById('addResponse'));
 
         axios({
@@ -80,6 +83,8 @@ document.body.addEventListener('click', function(e){
 
 
     if(e.target.classList.contains('addMemberResponseBtn')){
+
+        $('html,body').animate({scrollTop: document.body.scrollHeight},"slow");
 
        let id = e.target.closest('.response-block').dataset.responseId;
 
