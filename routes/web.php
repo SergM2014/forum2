@@ -11,9 +11,7 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+
 
 Route::get('/', 'CategoryController@all');
 Route::get('/category/{category}', 'CategoryController@show');
@@ -31,6 +29,7 @@ Route::get('/member/{member}/edit', 'MemberController@edit');
 Route::post('/member/{member}/update', 'MemberController@update');
 Route::get('/signUp', 'MemberController@create');
 Route::get('/signIn', 'MemberController@signIn');
+
 
 Route::group(['middleware' => 'member'], function () {
 

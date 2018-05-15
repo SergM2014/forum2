@@ -9,6 +9,11 @@
 
     <div class="row">
         <div class="col-2">
+            @if($response->members->avatar)
+
+                <img src='<?= asset("storage/uploads/avatars/{$response->members->avatar}") ?>' class="rounded custom-avatar-img" >
+
+            @endif
             <p class="font-weight-bold">{{ $response->members->name }}</p>
             <p class="text-lowercase">{{ $response->created_at }}</p>
         </div>

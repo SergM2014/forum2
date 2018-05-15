@@ -68,6 +68,7 @@ document.body.addEventListener('click', function(e){
                     document.querySelector('#parentId').value = "0";
 
                 })
+            //catch validation errors
                 .catch(error => {
 
                     let errors = error.response.data.errors;

@@ -97,7 +97,7 @@ class MemberController extends Controller
     {
 
         $request->validate([
-            'login' => 'required|min:6|unique:members,name',
+            'login' => 'required|min:6',
             'email' => 'required|email|email',
             'password' => 'confirmed',
         ]);
