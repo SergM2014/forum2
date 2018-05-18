@@ -13,7 +13,7 @@
             <form action="" method="post" id="addResponse" class = "addResponse " >
 
                 <input type="hidden" name="parentId" id="parentId" value ="0">
-                <input type="hidden" name="topicId" value="{{ $topic->id }}">
+                <input type="hidden" name="topicId"  id="topicId" value="{{ $topic->id }}">
 
 
                 <div class="form-group">
