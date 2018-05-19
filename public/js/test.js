@@ -41,31 +41,15 @@ document.body.addEventListener('click', function(e){
 
             data: formData
         })
-                .then(response => {
-
-                    let parentId = formData.get('parentId');
-
-                        axios({
-                            method: 'post',
-                            url: '/response/showAjaxAdded',
-                            data:{ id: response.data.responseId}
-                        })
-                            .then(response2 => {
-
-                                let li = document.createElement('li');
-                                li.className = "list-group-item  border border-secondary rounded";
-                                li.innerHTML = response2.data;
-
-                                document.querySelector(`[data-parent-id="${parentId}"]`).append(li)
-
-
-                            });
+                 .then(response => {
 
                     alertWithClose('success', response.data.message);
 
                     //clearfy addresponse form
                     document.querySelector('#addResponseText').value = '';
                     document.querySelector('#parentId').value = "0";
+                    document.querySelector('#responseToComment').innerHTML = '';
+                    document.querySelector('#addResponseTitle').innerText = 'Add Comment!';
 
                 })
             //catch validation errors
@@ -116,3 +100,26 @@ document.body.addEventListener('click', function(e){
     }
 
 });
+
+window.Echo.channel('new-response')
+    .listen('ResponseWasAdded', (e) => {
+
+        let response = e.response;
+        let template = e.template;
+
+        let topicId = Number(document.getElementById('topicId').value);
+        let parentId = document.getElementById('parentId').value;
+
+
+        if(topicId !== response.topic_id) return;
+
+
+        let li = document.createElement('li');
+        li.className = "list-group-item  border border-secondary rounded";
+        li.innerHTML = template;
+
+        document.querySelector(`[data-parent-id="${parentId}"]`).append(li)
+
+    });
+
+

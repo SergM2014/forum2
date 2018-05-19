@@ -12,7 +12,6 @@
 */
 
 
-
 Route::get('/', 'CategoryController@all');
 Route::get('/category/{category}', 'CategoryController@show');
 
@@ -34,7 +33,6 @@ Route::get('/signIn', 'MemberController@signIn');
 Route::group(['middleware' => 'member'], function () {
 
     Route::post('/response/store', 'ResponseController@store');
-    Route::post('/response/showAjaxAdded', 'ResponseController@showAjaxAdded');
     Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
 
 });

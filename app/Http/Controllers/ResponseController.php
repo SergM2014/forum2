@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ResponseWasAdded;
 use Illuminate\Http\Request;
 use App\Response;
 
@@ -38,8 +39,9 @@ class ResponseController extends Controller
         $response->save();
 
 
+        $template = (string)view('custom.partials.responseItem', compact('response'));
 
-
+        broadcast( new ResponseWasAdded($response, $template ));
 
         return response()->json([
             'addResponseText' => $request->addResponseText,
@@ -50,12 +52,7 @@ class ResponseController extends Controller
         ]);
     }
 
-    public function showAjaxAdded(Request $request)
-    {
-        $response = Response::find($request->id);
-        return view('custom.partials.responseItem', compact('response'));
 
-    }
 
     public function showResponseToComment(Request $request)
     {
