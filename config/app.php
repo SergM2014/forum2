@@ -168,6 +168,11 @@ return [
          * Package Service Providers...
          */
 
+        //shure here must be puted  algolia
+        Laravel\Scout\ScoutServiceProvider::class,
+
+
+
         /*
          * Application Service Providers...
          */

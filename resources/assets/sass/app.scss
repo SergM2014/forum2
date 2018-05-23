@@ -62,4 +62,18 @@
   max-height:150px;
 }
 
+.search-area{
+  position:relative;
+}
+
+.search-preview-container{
+  position: absolute;
+  background-color: #d6dcd7;
+  z-index: 500;
+  top: 40px;
+  width: 100%;
+  min-height: 100px;
+  padding: 5px;
+}
+
 

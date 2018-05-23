@@ -37,6 +37,8 @@ Route::group(['middleware' => 'member'], function () {
 
 });
 
+Route::post('search', 'SearchController@showPreview');
+
 
 
 Route::post('/images/uploadAvatar', 'ImagesController@uploadAvatar');

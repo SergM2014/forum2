@@ -99,6 +99,30 @@ document.body.addEventListener('click', function(e){
         document.querySelector('#parentId').value = "0";
     }
 
+
+    if(e.target.id === "searchFieldBtn") {
+
+        let searched = document.getElementById('searchField').value;
+
+
+        axios({
+            method: 'post',
+            url: '/search',
+
+            data: {searched: searched}
+        })
+            .then(response => {
+
+                let searchPreviewcontainer = document.createElement('div');
+                searchPreviewcontainer.id = "searchPreviewcontainer";
+                searchPreviewcontainer.className = "search-preview-container";
+                searchPreviewcontainer.innerHTML = response.data;
+                document.querySelector('#searchArea').prepend(searchPreviewcontainer);
+
+            })
+
+    }
+
 });
 
 window.Echo.channel('new-response')
@@ -121,5 +145,8 @@ window.Echo.channel('new-response')
         document.querySelector(`[data-parent-id="${parentId}"]`).append(li)
 
     });
+
+
+
 
 

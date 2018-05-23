@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Topic;
 use App\Response;
 use Illuminate\Support\Facades\DB;
+use App\Category;
+
 
 class TopicController extends Controller
 {
@@ -21,4 +23,6 @@ class TopicController extends Controller
 
         return view('custom.topic', compact('topic', 'responses', 'parentId'));
     }
+
+
 }

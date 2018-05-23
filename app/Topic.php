@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
 
 
 class Topic extends Model
 {
+
+    use Searchable;
 
     protected $fillable = [
       'category_id', 'member_id', 'title', 'eng_title'

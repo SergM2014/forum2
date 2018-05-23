@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
 
+    use Searchable;
 
     protected $fillable = [
       'parent_id', 'title', 'description', 'eng_title'
