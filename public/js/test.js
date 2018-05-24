@@ -10,6 +10,38 @@ function alertWithClose(level, message){
     $('#alert').alert()
 }
 
+
+function previewSearch(){
+    let searched = document.getElementById('searchField').value;
+
+    if(document.querySelector('#searchPreviewContainer')) document.querySelector('#searchPreviewContainer').remove();
+
+    let searchPreviewContainer = document.createElement('div');
+    searchPreviewContainer.id = "searchPreviewContainer";
+    searchPreviewContainer.className = "search-preview-container";
+
+    document.querySelector('#searchArea').prepend(searchPreviewContainer);
+    searchPreviewContainer.innerText = "Wait a bit! searchin now..";
+
+
+    axios({
+        method: 'post',
+        url: '/search',
+
+        data: {searched: searched}
+    })
+        .then(response => {
+
+
+
+
+            searchPreviewContainer.innerHTML = response.data;
+
+        })
+
+}
+
+
 window.onload = function() {
 
 
@@ -102,27 +134,22 @@ document.body.addEventListener('click', function(e){
 
     if(e.target.id === "searchFieldBtn") {
 
-        let searched = document.getElementById('searchField').value;
-
-
-        axios({
-            method: 'post',
-            url: '/search',
-
-            data: {searched: searched}
-        })
-            .then(response => {
-
-                let searchPreviewcontainer = document.createElement('div');
-                searchPreviewcontainer.id = "searchPreviewcontainer";
-                searchPreviewcontainer.className = "search-preview-container";
-                searchPreviewcontainer.innerHTML = response.data;
-                document.querySelector('#searchArea').prepend(searchPreviewcontainer);
-
-            })
-
+        previewSearch();
     }
 
+    if(!e.target.closest('#searchArea') && document.querySelector('#searchPreviewContainer')!= undefined )
+        document.querySelector('#searchPreviewContainer').remove();
+
+});
+
+
+
+
+document.querySelector("#searchField").addEventListener('keypress', function(e){
+    e.preventDefault();
+    if(e.keyCode == 13){
+        previewSearch()
+    }
 });
 
 window.Echo.channel('new-response')

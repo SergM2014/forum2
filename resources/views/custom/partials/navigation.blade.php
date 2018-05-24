@@ -27,6 +27,15 @@
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>
         </ul>
+
+
+        @if(session('member'))
+            <small>You are signed as: </small> <span class="badge badge-danger"><?= session('member') ?></span>
+            <a class="nav-link" href="/member/{{ session('memberId') }}/edit">Edit my profile</a>/
+            <a class="nav-link" href="/member/exit">Exit</a>
+        @endif
+
+
         <form class="form-inline my-2 my-lg-0 search-area" id="searchArea">
             <input class="form-control mr-sm-2" id="searchField" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" id="searchFieldBtn" type="button">Search</button>

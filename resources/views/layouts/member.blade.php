@@ -19,7 +19,8 @@
 
           <h1 class="text-center text-danger"> Member template </h1>
 
-        @include('custom.partials.memberNavigation')
+
+        @include('custom.partials.navigation')
 
 
         @yield('content')
