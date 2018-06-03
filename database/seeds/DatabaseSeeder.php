@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
              CategoriesTableSeeder::class,
              TopicsTableSeeder::class,
              ResponseTableSeeder::class,
+             LikesTableSeeder::class,
 
              ]);
     }
