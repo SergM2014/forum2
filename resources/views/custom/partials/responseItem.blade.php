@@ -19,8 +19,13 @@
     <div class="col-10">
         <p class="text-center">{{ $response->response }}</p>
 
+
+
         @if(session('member'))
             <div class="float-right">
+
+                <span class="badge badge-success">{{ $response->likes }}</span><img src='<?= asset("storage/images/like.png") ?>' class="like-dislike-icon" >
+                <span class="badge badge-danger">{{ $response->dislikes }}</span><img src='<?= asset("storage/images/dislike.png") ?>' class="like-dislike-icon" >
                 <button type="button"  class="btn btn-dark btn-sm addMemberResponseBtn">Answer</button>
             </div>
         @endif

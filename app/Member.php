@@ -20,4 +20,8 @@ class Member extends Model
         return $this->hasMany('App\Topic');
     }
 
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
 }

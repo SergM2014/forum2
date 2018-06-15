@@ -19,4 +19,9 @@ class Response extends Model
     {
         return $this->belongsTo('App\Member', 'member_id');
     }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
 }
