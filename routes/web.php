@@ -32,6 +32,9 @@ Route::get('/signIn', 'MemberController@signIn');
 
 Route::group(['middleware' => 'member'], function () {
 
+    Route::post('/response/like','LikeController@addLike');
+    Route::post('/response/dislike','LikeController@addDislike');
+
     Route::post('/response/store', 'ResponseController@store');
     Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
 

@@ -24,8 +24,10 @@
         @if(session('member'))
             <div class="float-right">
 
-                <span class="badge badge-success">{{ $response->likes }}</span><img src='<?= asset("storage/images/like.png") ?>' class="like-dislike-icon" >
-                <span class="badge badge-danger">{{ $response->dislikes }}</span><img src='<?= asset("storage/images/dislike.png") ?>' class="like-dislike-icon" >
+                <span class="badge badge-success likesNumber">{{ $response->likes }}</span>
+                <img src='<?= asset("storage/images/like.png") ?>' class="like-dislike-icon" id="addLike">
+                <span class="badge badge-danger dislikesNumber">{{ $response->dislikes }}</span
+                ><img src='<?= asset("storage/images/dislike.png") ?>' class="like-dislike-icon" id="addDislike">
                 <button type="button"  class="btn btn-dark btn-sm addMemberResponseBtn">Answer</button>
             </div>
         @endif

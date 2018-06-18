@@ -140,6 +140,38 @@ document.body.addEventListener('click', function(e){
     if(!e.target.closest('#searchArea') && document.querySelector('#searchPreviewContainer')!= undefined )
         document.querySelector('#searchPreviewContainer').remove();
 
+    if(e.target.id === "addLike"){
+
+        let responseId = e.target.closest('.response-block').dataset.responseId;
+
+
+        axios({
+            method: 'post',
+            url: '/response/like',
+            data:{ responseId: responseId}
+        })
+            .then(response => {
+                if(response.data.error) return;
+                e.target.closest('.response-block').querySelector('.likesNumber').innerHTML = response.data.likesNumber;
+            })
+    }
+
+    if(e.target.id === "addDislike"){
+
+        let responseId = e.target.closest('.response-block').dataset.responseId;
+
+
+        axios({
+            method: 'post',
+            url: '/response/dislike',
+            data:{ responseId: responseId}
+        })
+            .then(response => {
+                if(response.data.error) return;
+                e.target.closest('.response-block').querySelector('.dislikesNumber').innerHTML = response.data.dislikesNumber;
+            })
+    }
+
 });
 
 
