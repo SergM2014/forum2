@@ -10,6 +10,22 @@ function alertWithClose(level, message){
     $('#alert').alert()
 }
 
+function alertWithoutClose(level, message){
+    let alert = `<div id = "alert" class="alert alert-${level} alert-dismissible fade show custom-alert" role="alert">
+        <strong>${message}!</strong> 
+    
+</button>
+    </div>`;
+
+    document.querySelector('.main-custom-container').insertAdjacentHTML('afterBegin', alert);
+    $('#alert').alert();
+
+
+    $("#alert").fadeTo(1000, 3000).slideUp(3000, function(){
+        $("#alert").alert('close');
+    });
+}
+
 
 function previewSearch(){
     let searched = document.getElementById('searchField').value;
@@ -153,6 +169,7 @@ document.body.addEventListener('click', function(e){
             .then(response => {
                 if(response.data.error) return;
                 e.target.closest('.response-block').querySelector('.likesNumber').innerHTML = response.data.likesNumber;
+                alertWithoutClose('success', 'Your like is added!')
             })
     }
 
@@ -169,6 +186,7 @@ document.body.addEventListener('click', function(e){
             .then(response => {
                 if(response.data.error) return;
                 e.target.closest('.response-block').querySelector('.dislikesNumber').innerHTML = response.data.dislikesNumber;
+                alertWithoutClose('success', 'Your dislike is added!')
             })
     }
 
