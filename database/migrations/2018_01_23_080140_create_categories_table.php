@@ -16,10 +16,13 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id');
+            $table->integer('member_id')->unsigned()->index();
             $table->string('title');
             $table->string('eng_title');
             $table->text('description');
             $table->timestamps();
+
+            $table->foreign('member_id')->references('id')->on('members');
         });
     }
 

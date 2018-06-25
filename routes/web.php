@@ -54,3 +54,12 @@ Route::post('/images/deleteAvatar', 'ImagesController@deleteAvatar');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
+
+    Route::get('/', function () { return view('admin.index');});
+    Route::get('/category', 'CategoryController@adminAll');
+
+    Route::post('/popup/category/{category}', function($category){return view('admin.popup.category', compact('category'));});
+
+});

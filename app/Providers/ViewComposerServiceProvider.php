@@ -46,6 +46,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         view()->composer('custom.partials.categories', function($view){
             $view->with('subCategories', Category::all());
         });
+        view()->composer('admin.partials.categories', function($view){
+            $view->with('subCategories', Category::all());
+        });
     }
 
     /**

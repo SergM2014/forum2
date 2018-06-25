@@ -10065,3 +10065,21 @@ a.text-dark:focus {
   cursor: pointer;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
+.popup-menu {
+  position: absolute;
+  background-color: #e8b493;
+  border: 1px solid;
+  border-radius: 5px;
+  min-width: 120px;
+  padding: 3px;
+  z-index: 1000;
+}
+
+.popup-menu-del-btn {
+  margin: -8px 0 -8px -12px;
+}
+

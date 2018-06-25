@@ -73,4 +73,51 @@ class Category extends Model
 
 
 
+    public static function getAdminCategories($parentId = 0)
+    {
+        $perPage = config('app.perPageCategories');
+        $total = DB::table('categories')
+            ->where('parent_id', $parentId)
+            ->count();
+
+
+        $page = LengthAwarePaginator::resolveCurrentPage(config('app.categoriesPageString'));
+        $offSet = ($page * config('app.perPageCategories'))-config('app.perPageCategories');
+
+
+
+
+
+        $results = DB::table('categories')
+            ->leftjoin('topics','categories.id', '=', 'topics.category_id')
+            ->leftjoin('responses','topics.id', '=',  'responses.topic_id')
+            ->join('members', 'categories.member_id', '=', 'members.id')
+
+
+            ->select('categories.id', 'categories.parent_id', 'categories.description', 'categories.title',
+                'categories.eng_title', 'categories.created_at',
+                DB::raw('COUNT(DISTINCT topics.id) AS topic_number, COUNT(DISTINCT responses.id)  AS responses_number,
+                 members.id AS member_id, members.name AS member_name'))
+            ->groupBy('categories.id')
+            ->having('categories.parent_id', $parentId)
+            ->get();
+
+
+
+
+
+        $itemsForCurrentPage = array_slice($results->toArray(), $offSet, config('app.perPageCategories'), true);
+
+        $raws = new LengthAwarePaginator($itemsForCurrentPage, $total, $perPage, $page, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(config('app.categoriesPageString')),
+        ]);
+        $raws ->setPageName(config('app.categoriesPageString'));
+
+
+        return $raws;
+
+    }
+
+
+
 }
