@@ -38,6 +38,8 @@ Route::group(['middleware' => 'member'], function () {
     Route::post('/response/store', 'ResponseController@store');
     Route::post('/response/showResponseToComment', 'ResponseController@showResponseToComment');
 
+
+
 });
 
 Route::post('search', 'SearchController@showPreview');
@@ -61,5 +63,8 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::get('/category', 'CategoryController@adminAll');
 
     Route::post('/popup/category/{category}', function($category){return view('admin.popup.category', compact('category'));});
+
+    Route::get('/category/create', 'CategoryController@create');
+    Route::post('/category/store', 'CategoryController@store');
 
 });

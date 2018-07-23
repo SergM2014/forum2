@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Topic;
+use App\Member;
 
 class CategoryController extends Controller
 {
@@ -33,7 +34,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $members = Member::all();
+        $categories = Category::all();
+        return view('admin.categories.create', compact('members', 'categories'));
     }
 
     /**
@@ -44,7 +47,26 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+
+        $engTitle = translite_in_Latin($request->title);
+
+         $category = new Category;
+         $category->parent_id = $request->parentId;
+         $category->member_id = $request->memberId;
+         $category->title = $request->title;
+         $category->eng_title = $engTitle;
+         $category->description = $request->description;
+         $category->save();
+
+
+        return redirect('/admin/category')->with('status', 'Category added!');
+
     }
 
     /**
@@ -115,7 +137,7 @@ class CategoryController extends Controller
         $parentId = 0;
 
 
-        return view('admin.categories', compact ('parentId', 'categories',  'categoriesCounter'));
+        return view('admin.categories.index', compact ('parentId', 'categories',  'categoriesCounter'));
 
     }
 
