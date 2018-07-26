@@ -66,5 +66,7 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
     Route::get('/category/create', 'CategoryController@create');
     Route::post('/category/store', 'CategoryController@store');
+    Route::get('/category/{category}/edit', 'CategoryController@edit');
+    Route::put('/category/{category}', 'CategoryController@update');
 
 });

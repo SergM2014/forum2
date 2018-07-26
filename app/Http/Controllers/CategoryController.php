@@ -98,9 +98,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+
+
+        $members = Member::all();
+        $categories = Category::all();
+        $categoryParentId = old('parentId')?? $category->parent_id;
+        $categoryMemberId = old('memberId')?? $category->member_id;
+
+        return view('admin.categories.edit',
+            compact('members', 'categories', 'category', 'categoryMemberId', 'categoryParentId'));
+
     }
 
     /**
@@ -112,7 +121,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+
+
+       $engTitle = translite_in_Latin($request->title);
+
+       $category = Category::find($id);
+        $category->parent_id = $request->parentId;
+        $category->member_id = $request->memberId;
+        $category->title = $request->title;
+        $category->eng_title = $engTitle;
+        $category->description = $request->description;
+        $category->save();
+
+        return redirect('/admin/category')->with('status', 'Category updated!');
     }
 
     /**

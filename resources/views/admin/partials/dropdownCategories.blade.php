@@ -2,7 +2,13 @@
 
    @if (  $parentId == $category->parent_id  )
 
-         <option value ="{{ $category->id }}">{{ $levelPrefix.$category->title }}</option>
+         <option value ="{{ $category->id }}"
+
+         @if ($category->id == $choosenCategory)
+             selected
+         @endif
+
+         >{{ $levelPrefix.$category->title }}</option>
 
             @foreach($categories as $subCategory)
 
