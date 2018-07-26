@@ -68,5 +68,6 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::post('/category/store', 'CategoryController@store');
     Route::get('/category/{category}/edit', 'CategoryController@edit');
     Route::put('/category/{category}', 'CategoryController@update');
+    Route::delete('/category/{category}', 'CategoryController@destroy');
 
 });

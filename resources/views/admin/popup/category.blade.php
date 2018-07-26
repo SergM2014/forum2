@@ -10,6 +10,6 @@
         {{ csrf_field() }}
 
 
-        <button type="button" class="btn btn-link popup-menu-del-btn" id="popUpAdminDelete<?= ucfirst(basename($_POST['processContr'])) ?>" >delete</button>
+        <button type="submit" class="btn btn-link popup-menu-del-btn" id="popUpAdminDelete<?= ucfirst(basename($_POST['processContr'])) ?>" >delete</button>
 
     </form>
