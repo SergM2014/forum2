@@ -60,14 +60,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
     Route::get('/', function () { return view('admin.index');});
-    Route::get('/category', 'CategoryController@adminAll');
-
+//show admin category popupmenu
     Route::post('/popup/category/{category}', function($category){return view('admin.popup.category', compact('category'));});
 
+
+    Route::get('/category', 'CategoryController@adminCategories');
     Route::get('/category/create', 'CategoryController@create');
     Route::post('/category/store', 'CategoryController@store');
     Route::get('/category/{category}/edit', 'CategoryController@edit');
     Route::put('/category/{category}', 'CategoryController@update');
     Route::delete('/category/{category}', 'CategoryController@destroy');
+
+    Route::get('/category/{category}', 'CategoryController@adminCategories');
 
 });

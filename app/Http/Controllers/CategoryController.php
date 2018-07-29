@@ -155,18 +155,22 @@ class CategoryController extends Controller
     }
 
 
-    public function adminAll()
+    public function adminCategories($category = 0)
     {
-        $categories = Category::getAdminCategories();
+        $parentId = $category?? 0;
+
+        $categories = Category::getAdminCategories($parentId);
 
 
         $categoriesCounter = (($_GET[config('app.categoriesPageString')]?? 1)-1)*config('app.perPageCategories');
 
-        $parentId = 0;
+
 
 
         return view('admin.categories.index', compact ('parentId', 'categories',  'categoriesCounter'));
 
     }
+
+
 
 }
