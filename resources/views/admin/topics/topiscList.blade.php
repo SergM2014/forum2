@@ -17,15 +17,12 @@
         @foreach ($topics as $topic)
 
 
-                <tr data-topic-id ="{{ $topic->id }}" class="category-item pointer">
-                    <th scope="row"><?php   ?> {{ $topicCounter++ }}</th>
+                <tr data-topic-id ="{{ $topic->id }}" class="topic-item pointer">
+                    <th scope="row"><?php   ?> {{ $topicTableCounter++ }}</th>
                     <td>{{ $topic->title }}</td>
-
                     <td> {{ $topic->categories->title }} </td>
-
                     <td>{{ $topic->members->name }}</td>
                     <td>{{ $topic->created_at }}</td>
-
                 </tr>
 
         @endforeach

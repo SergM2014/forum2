@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::get('/', function () { return view('admin.index');});
 //show admin category popupmenu
     Route::post('/popup/category/{category}', function($category){return view('admin.popup.category', compact('category'));});
+    Route::post('/popup/topic/{topic}', function($category){return view('admin.popup.topic', compact('topic'));});
 
 
     Route::get('/category', 'CategoryController@adminCategories');

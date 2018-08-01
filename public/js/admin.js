@@ -98,11 +98,24 @@ class PopUpMenu{
 
 
 document.body.addEventListener('click', function(e){
+
+
     if(e.target.closest('.category-item') && e.target.className !== 'subCategory-item'){
-       // alert(111);
+
         let id = e.target.closest('tr').dataset.categoryId;
-//console.log(id);
-new PopUpMenu(e).outputMenu(id, '/popup/category/'+id, 'bum');
+
+        new PopUpMenu(e).outputMenu(id, '/popup/category/'+id, 'bum');
 
     }
+
+
+    if(e.target.closest('.topic-item') ){
+
+        let id = e.target.closest('tr').dataset.topicId;
+
+        new PopUpMenu(e).outputMenu(id, '/popup/topic/'+id, 'bum');
+
+    }
+
+
 });

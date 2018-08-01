@@ -32,9 +32,9 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::paginate(10);
-        $topicCounter =  (($_GET['page']?? 1)-1)*10+1;
+        $topicTableCounter =  (($_GET['page']?? 1)-1)*10+1;
 
-        return view('admin.topics.index', compact('topics', 'topicCounter'));
+        return view('admin.topics.index', compact('topics', 'topicTableCounter'));
     }
 
 
