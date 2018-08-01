@@ -73,4 +73,7 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
     Route::get('/category/{category}', 'CategoryController@adminCategories');
 
+
+    Route::get('topic', 'TopicController@index');
+
 });

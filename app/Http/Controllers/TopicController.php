@@ -13,10 +13,6 @@ class TopicController extends Controller
 {
     public function show(Topic $topic)
     {
-//        $responses = Response::with('members')
-//            ->where('topic_id', $topic->id)
-//            ->orderBy('created_at', 'ASC')->get();
-
         $responses = Response::with('members')
             ->withCount(['likes as likes' => function($query){
                 $query->where('like', '1');
@@ -31,6 +27,14 @@ class TopicController extends Controller
 
 
         return view('custom.topic', compact('topic', 'responses', 'parentId'));
+    }
+
+    public function index()
+    {
+        $topics = Topic::paginate(10);
+        $topicCounter =  (($_GET['page']?? 1)-1)*10+1;
+
+        return view('admin.topics.index', compact('topics', 'topicCounter'));
     }
 
 
