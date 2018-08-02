@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Admin Categories</div>
+                    <div class="panel-heading">Admin Topics</div>
 
                     <div class="panel-body">
                         @if (session('status'))
@@ -14,19 +14,19 @@
                             </div>
                         @endif
 
-                            <h1>Create new category</h1>
+                            <h1>Create new topic</h1>
 
-                            <form action="/admin/category" method="post">
+                            <form action="/admin/topic" method="post">
 
                                 {{ csrf_field() }}
 
                                 <div class="form-group">
 
-                                    <label for="setParentCategory">Select a parent category</label>
+                                    <label for="setCategory">Select a category</label>
 
-                                    <select class="custom-select" id = "setParentCategory" name="parentId">
+                                    <select class="custom-select" id = "setCategory" name="categoryId">
 
-                                        <option value ="0">Put as the main category</option>
+
 
                                         @include('admin.partials.dropdownCategories',['parentId' => 0, 'levelPrefix'=>'' ])
 
@@ -36,13 +36,18 @@
 
                                 <div class="form-group">
 
-                                    <label for="setCategoryCreator">Select a member, creator of category</label>
+                                    <label for="setTopicCreator">Select a member, creator of topic</label>
 
-                                        <select class="custom-select" id="setCategoryCreator" name="memberId">
+                                        <select class="custom-select" id="setTopicCreator" name="memberId">
 
                                             @foreach ($members as $member)
 
-                                                <option value="{{ $member->id }}">{{ $member->name }}</option>
+                                                <option value="{{ $member->id }}"
+
+                                                        @if ( old('memberId') == $member->id) ) selected
+                                                        @endif
+
+                                                >{{ $member->name }}</option>
 
                                             @endforeach
 
@@ -58,14 +63,7 @@
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label for="categoryDescription">Description</label>
-                                    <textarea class="form-control <?= $errors->has('description')? 'is-invalid' : '' ?>"
-                                              id="categoryDescription" name="description" rows="3"
-                                              placeholder="Put description">{{ old('description')}}
-                                    </textarea>
-                                    <div class="invalid-feedback"> <?= $errors->first('description') ?></div>
-                                </div>
+
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
 

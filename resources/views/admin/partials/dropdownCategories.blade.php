@@ -4,7 +4,7 @@
 
          <option value ="{{ $category->id }}"
 
-         @if ($category->id == $choosenCategory)
+         @if ($category->id == @$choosenCategory OR $category->id == @old('categoryId'))
              selected
          @endif
 
