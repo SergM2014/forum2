@@ -75,14 +75,6 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
 //popup for topic
     Route::post('/popup/topic/{topic}', function($category){return view('admin.popup.topic', compact('topic'));});
-
-//    Route::get('/topic', 'TopicController@index');
-//    Route::get('/topic/create', 'TopicController@create');
-//    Route::post('/topic/store', 'TopicController@store');
-//    Route::get('/topic/{topic}/edit', 'TopicController@edit');
-//    Route::put('/topic/{topic}', 'TopicController@update');
-//    Route::delete('topic/{topic}', 'TopicController@destroy');
-
-      Route::resource('topic','TopicController');
+    Route::resource('topic','TopicController');
 
 });

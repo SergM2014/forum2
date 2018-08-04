@@ -117,5 +117,30 @@ document.body.addEventListener('click', function(e){
 
     }
 
+    if(e.target.id === "popUpAdminDeleteCategoryBtn"){
+       document.getElementById('modalBody').innerHTML = "Are You shure to delete this Category?";
+       document.getElementById('modalConfirmBtn').classList.add('delete-category-btn');
+        $('#modal').modal()
+
+
+    }
+
+    if(e.target.classList.contains('delete-category-btn')){
+        document.getElementById('deleteCategory').submit();
+    }
+
+
+    if(e.target.id === "popUpAdminDeleteTopicBtn"){
+        document.getElementById('modalBody').innerHTML = "Are You shure to delete this Topic?";
+        document.getElementById('modalConfirmBtn').classList.add('delete-topic-btn');
+        $('#modal').modal()
+
+
+    }
+
+    if(e.target.classList.contains('delete-topic-btn')){
+        document.getElementById('deleteTopic').submit();
+    }
+
 
 });
