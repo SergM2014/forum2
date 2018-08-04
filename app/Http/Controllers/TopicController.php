@@ -75,4 +75,49 @@ class TopicController extends Controller
     }
 
 
+    public function edit(Topic $topic)
+    {
+
+
+        $members = Member::all();
+        $categories = Category::all();
+        $categoryId = old('categoryId')?? $topic->category_id;
+        $topicMemberId = old('memberId')?? $topic->member_id;
+
+        return view('admin.topics.edit',
+            compact('members', 'categories', 'topic', 'topicMemberId', 'categoryId'));
+
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required',
+           
+        ]);
+
+
+
+        $engTitle = translite_in_Latin($request->title);
+
+        $topic = Topic::find($id);
+        $topic->category_id = $request->categoryId;
+        $topic->member_id = $request->memberId;
+        $topic->title = $request->title;
+        $topic->eng_title = $engTitle;
+
+        $topic->save();
+
+        return redirect('/admin/topic')->with('status', 'Topic updated!');
+    }
+
+    public function destroy($id)
+    {
+        $topic = Topic::find($id);
+        $topic->delete();
+        return redirect('/admin/topic')->with('status', 'Topic deleted!');
+    }
+
+
 }
