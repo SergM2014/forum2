@@ -12,7 +12,7 @@ class Response extends Model
 
     public function topics()
     {
-        return $this->belongsTo('App\Topic');
+        return $this->belongsTo('App\Topic', 'topic_id');
     }
 
     public function members()

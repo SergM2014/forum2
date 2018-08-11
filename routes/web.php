@@ -74,7 +74,12 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::get('/category/{category}', 'CategoryController@adminCategories');
 
 //popup for topic
-    Route::post('/popup/topic/{topic}', function($category){return view('admin.popup.topic', compact('topic'));});
+    Route::post('/popup/topic/{topic}', function($topic){return view('admin.popup.topic', compact('topic'));});
     Route::resource('topic','TopicController');
+
+//popup for response
+    Route::post('/popup/response/{response}', function($response){return view('admin.popup.response', compact('response'));});
+    Route::get('/response', 'ResponseController@index');
+    Route::get('/response/{response}', 'ResponseController@index');
 
 });

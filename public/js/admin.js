@@ -142,5 +142,13 @@ document.body.addEventListener('click', function(e){
         document.getElementById('deleteTopic').submit();
     }
 
+    if(e.target.closest('.response-item') ){
+
+        let id = e.target.closest('tr').dataset.topicId;
+
+        new PopUpMenu(e).outputMenu(id, '/popup/response/'+id, 'bum');
+
+    }
+
 
 });

@@ -59,4 +59,15 @@ class ResponseController extends Controller
         $response = Response::find($request->id);
         return view('custom.partials.responseItemToComment', compact('response'));
     }
+
+
+
+    //admin side
+    public function index($parentId = 0)
+    {
+        $responses = Response::all();
+
+
+        return view('admin.responses.index', compact('responses', 'parentId'));
+    }
 }
