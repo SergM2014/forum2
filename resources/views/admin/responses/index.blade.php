@@ -16,52 +16,63 @@
                                 </button>
                             </div>
                         @endif
+                        <?php $givenResponces = 0;
+                                foreach($responses as $item){
+                                    if($item->parent_id == $parentId) $givenResponces++;
+                                }
 
-                        <h1>Greetings in admin responses dashboard</h1>
+                        ?>
+                            @if($givenResponces >0)
+                                <h1>Greetings in admin responses dashboard</h1>
 
 
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                <tr class="bg-danger">
-                                    <th scope="col" class="text-center">#</th>
-                                    <th scope="col" class="text-center">Response</th>
-                                    <th scope="col" class="text-center">Topic</th>
-                                    <th scope="col" class="text-center">Number of subresponses</th>
-                                    <th scope="col" class="text-center">Creater</th>
-                                    <th scope="col" class="text-center">Published</th>
-                                    <th scope="col" class="text-center">Changed</th>
-                                    <th scope="col" class="text-center">Added At</th>
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr class="bg-danger">
+                                            <th scope="col" class="text-center">#</th>
+                                            <th scope="col" class="text-center">Response</th>
+                                            <th scope="col" class="text-center">Topic</th>
+                                            <th scope="col" class="text-center">Number of subresponses</th>
+                                            <th scope="col" class="text-center">Creater</th>
+                                            <th scope="col" class="text-center">Published</th>
+                                            <th scope="col" class="text-center">Changed</th>
+                                            <th scope="col" class="text-center">Added At</th>
 
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-                                    @foreach ($responses as $response)
-
-                                        @if($response->parent_id == $parentId)
-
-                                        <tr data-topic-id ="{{ $response->id }}" class="response-item pointer">
-                                            <th scope="row"><?php   ?> {{ @++$responseTableCounter }}</th>
-                                            <td>{{ $response->response }}</td>
-                                            <td>{{ $response->topics->title }}</td>
-                                            <td><?= $countSubresponses = 0;
-                                                 foreach($responses as $item){
-                                                      if($item->parent_id == $response->id)  $countSubresponses++;
-                                                     }
-                                             $countSubresponses ?> </td>
-                                            <td>{{ $response->members->name }}</td>
-                                            <td>{{ $response->published == 1? 'Yes': 'No' }}</td>
-                                            <td>{{ $response->changed == 1? 'Yes': 'No'}}</td>
-                                            <td>{{ $response->created_at }}</td>
                                         </tr>
+                                        </thead>
 
-                                        @endif
+                                        <tbody>
 
-                                    @endforeach
+                                            @foreach ($responses as $response)
 
-                                </tbody>
-                            </table>
+                                                @if($response->parent_id == $parentId)
+
+                                                <tr data-topic-id ="{{ $response->id }}" class="response-item pointer">
+                                                    <th scope="row"><?php   ?> {{ @++$responseTableCounter }}</th>
+                                                    <td>{{ $response->response }}</td>
+                                                    <td>{{ $response->topics->title }}</td>
+                                                    <td><?= $countSubresponses = 0;
+                                                         foreach($responses as $item){
+                                                              if($item->parent_id == $response->id)  $countSubresponses++;
+                                                             }
+                                                     $countSubresponses ?> </td>
+                                                    <td>{{ $response->members->name }}</td>
+                                                    <td>{{ $response->published == 1? 'Yes': 'No' }}</td>
+                                                    <td>{{ $response->changed == 1? 'Yes': 'No'}}</td>
+                                                    <td>{{ $response->created_at }}</td>
+                                                </tr>
+
+                                                @endif
+
+                                            @endforeach
+
+                                        </tbody>
+                                    </table>
+                                @else
+
+                                    <h2 class="text-danger text-center">No response is found</h2>
+
+                                @endif
 
 
 

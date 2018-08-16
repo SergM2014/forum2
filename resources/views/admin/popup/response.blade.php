@@ -1,6 +1,8 @@
     <a href='/admin/response/{{ $response }}' class='popUp-menu-item'>show subresponses</a>
 
-    <a href='/admin/response/create' class='popUp-menu-item'>add</a>
+    <a href='/admin/response/create' class='popUp-menu-item'>add main response</a>
+
+    <a href='/admin/response/{{ $response }}/create' class='popUp-menu-item'>add subresponse</a>
 
     <a href='/admin/response/<?= (int)$_POST['id'] ?>/edit' class='popUp-menu-item'>update</a>
 

@@ -80,6 +80,11 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 //popup for response
     Route::post('/popup/response/{response}', function($response){return view('admin.popup.response', compact('response'));});
     Route::get('/response', 'ResponseController@index');
+    Route::get('/response/create', 'ResponseController@create');
+    Route::get('/response/{response}/create', 'ResponseController@create');
     Route::get('/response/{response}', 'ResponseController@index');
+
+    Route::post('/response', 'ResponseController@storeAdmin');
+   // Roure::post('/response/{response}','ResponseController@storeAdmin')
 
 });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Events\ResponseWasAdded;
+use App\Member;
+use App\Topic;
 use Illuminate\Http\Request;
 use App\Response;
 
@@ -10,7 +12,6 @@ class ResponseController extends Controller
 {
     public function show(Response $response)
     {
-
         $responses = Response::with('members')
             ->where('topic_id', $response->topic_id)
             ->orderBy('created_at', 'ASC')->get();
@@ -18,7 +19,6 @@ class ResponseController extends Controller
         $parentId = $responses->pluck('parent_id')->min();
         $topicId = $response->topic_id;
         $responseId = $response->id;
-
 
         return view('custom.response', compact( 'responses', 'responseId', 'topicId', 'parentId'));
     }
@@ -66,8 +66,39 @@ class ResponseController extends Controller
     public function index($parentId = 0)
     {
         $responses = Response::all();
-
-
         return view('admin.responses.index', compact('responses', 'parentId'));
+    }
+
+    public function create(Response $response)
+    {
+
+        $members = Member::all();
+        $topics = Topic::all();
+        $parentId = $response->id;
+        $topicId = $response->topic_id;
+        return view('admin.responses.create', compact('members', 'topics', 'parentId', 'topicId'));
+    }
+
+    public function storeAdmin(Request $request)
+    {
+        $request->validate([
+            'addResponseText' => 'required',
+            'published' =>'required'
+
+        ]);
+
+        $response = new Response;
+        $response->parent_id = $request->parentId;
+        $response->topic_id = $request->topicId;
+        $response->member_id = $request->memberId;
+        $response->response = $request->addResponseText;
+        $response->published = $request->published;
+        $response->save();
+
+
+
+
+
+        return redirect('/admin/response')->with('status', 'Category added!');
     }
 }
