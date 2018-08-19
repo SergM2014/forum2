@@ -88,5 +88,7 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::post('/response', 'ResponseController@storeAdmin');
     Route::put('/response/{response}', 'ResponseController@update');
 
+    Route::delete('/response/{response}', 'ResponseController@destroy');
+
 
 });

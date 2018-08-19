@@ -122,4 +122,12 @@ class ResponseController extends Controller
 
         return redirect('/admin/response')->with('status', 'Response updated!');
     }
+
+
+    public function destroy($id)
+    {
+        $response = Response::find($id);
+        $response->delete();
+        return redirect('/admin/response')->with('status', 'Response deleted!');
+    }
 }

@@ -13,6 +13,6 @@
         {{ csrf_field() }}
 
 
-        <button type="button" class="btn btn-link popup-menu-del-btn" id="popUpAdminDeleteResponseBtn" >delete</button>
+        <button type="submit" class="btn btn-link popup-menu-del-btn" id="popUpAdminDeleteResponseBtn" >delete</button>
 
     </form>
