@@ -71,7 +71,6 @@ class ResponseController extends Controller
 
     public function create(Response $response)
     {
-
         $members = Member::all();
         $topics = Topic::all();
         $parentId = $response->id;
@@ -95,10 +94,32 @@ class ResponseController extends Controller
         $response->published = $request->published;
         $response->save();
 
+        return redirect('/admin/response')->with('status', 'Response added!');
+    }
 
 
+    public function edit(Response $response)
+    {
+        $members = Member::all();
+        $topics = Topic::all();
+        return view('admin.responses.edit', compact('response', 'members', 'topics'));
+    }
 
+    public function update(Request $request)
+    {
+        $request->validate([
+            'changeResponseText' => 'required',
 
-        return redirect('/admin/response')->with('status', 'Category added!');
+        ]);
+
+        $response =  Response::find($request->id);
+        $response->parent_id = $request->parentId;
+        $response->topic_id = $request->topicId;
+        $response->member_id = $request->memberId;
+        $response->response = $request->changeResponseText;
+        $response->published = $request->published;
+        $response->save();
+
+        return redirect('/admin/response')->with('status', 'Response updated!');
     }
 }

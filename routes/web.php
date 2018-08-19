@@ -82,9 +82,11 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::get('/response', 'ResponseController@index');
     Route::get('/response/create', 'ResponseController@create');
     Route::get('/response/{response}/create', 'ResponseController@create');
+    Route::get('/response/{response}/edit', 'ResponseController@edit');
     Route::get('/response/{response}', 'ResponseController@index');
 
     Route::post('/response', 'ResponseController@storeAdmin');
-   // Roure::post('/response/{response}','ResponseController@storeAdmin')
+    Route::put('/response/{response}', 'ResponseController@update');
+
 
 });
