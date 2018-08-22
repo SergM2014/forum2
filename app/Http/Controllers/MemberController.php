@@ -153,5 +153,31 @@ class MemberController extends Controller
 
     }
 
+    public function editAdmin(Member $member)
+    {
+        return view('admin.members.edit', compact('member'));
+    }
+
+
+    public function updateAdmin(Request $request)
+    {
+
+        $request->validate([
+            'login' => 'required|min:6',
+            'email' => 'required|email|email',
+            'password' => 'confirmed',
+        ]);
+
+
+        $member =  Member::find($request->id);
+        $member->avatar = $request->imageData;
+        $member->name = $request->login;
+        $member->email = $request->email;
+        if(isset($request->password))    $member->password = bcrypt($request->password);
+
+        $member->save();
+
+        return redirect('/admin/member')->with('status', 'Member updated!');
+    }
 
 }

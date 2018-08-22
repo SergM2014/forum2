@@ -96,6 +96,8 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
     Route::get('/member', 'MemberController@index');
     Route::get('/member/create', 'MemberController@createAdmin');
+    Route::get('/member/{member}/edit', 'MemberController@editAdmin');
 
     Route::post('/member', 'MemberController@storeAdmin');
+    Route::put('/member/{member}', 'MemberController@updateAdmin');
 });
