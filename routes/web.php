@@ -91,4 +91,11 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
     Route::delete('/response/{response}', 'ResponseController@destroy');
 
 
+    //popup for response
+    Route::post('/popup/member/{member}', function($member){return view('admin.popup.member', compact('member'));});
+
+    Route::get('/member', 'MemberController@index');
+    Route::get('/member/create', 'MemberController@createAdmin');
+
+    Route::post('/member', 'MemberController@storeAdmin');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Member;
+use App\User;
 
 class MemberController extends Controller
 {
@@ -112,6 +113,44 @@ class MemberController extends Controller
        $member->save();
 
         return view('custom.member.updated');
+    }
+
+
+    //admin part
+    public function index()
+    {
+        $members = Member::all();
+        return view('admin.members.index', compact('members'));
+    }
+
+
+    public function createAdmin()
+    {
+        return view('admin.members.create');
+    }
+
+    public function storeAdmin(Request $request)
+    {
+        $request->validate([
+            'login' => 'required|min:6|unique:members,name',
+            'email' => 'required|email|unique:members,email',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
+        ]);
+
+
+        $member = new Member();
+        if(!is_null($request->imageData)) $member->avatar = $request->imageData;
+        $member->name = $request->login;
+        $member->email = $request->email;
+        $member->password = bcrypt($request->password);
+        $member->remember_token = str_random(16);
+        $member->save();
+
+
+
+        return redirect('/admin/member')->with('status', 'Member added!');
+
     }
 
 

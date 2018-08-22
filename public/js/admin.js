@@ -150,5 +150,13 @@ document.body.addEventListener('click', function(e){
 
     }
 
+    if(e.target.closest('.member-item') ){
+
+        let id = e.target.closest('tr').dataset.memberId;
+
+        new PopUpMenu(e).outputMenu(id, '/popup/member/'+id, 'bum');
+
+    }
+
 
 });

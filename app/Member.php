@@ -24,4 +24,9 @@ class Member extends Model
     {
         return $this->hasMany('App\Like');
     }
+
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
