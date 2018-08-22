@@ -158,5 +158,17 @@ document.body.addEventListener('click', function(e){
 
     }
 
+    if(e.target.id === "popUpAdminDeleteMemberBtn"){
+        document.getElementById('modalBody').innerHTML = "Are You shure to delete this Member?";
+        document.getElementById('modalConfirmBtn').classList.add('delete-member-btn');
+        $('#modal').modal()
+
+
+    }
+
+    if(e.target.classList.contains('delete-member-btn')){
+        document.getElementById('deleteMember').submit();
+    }
+
 
 });

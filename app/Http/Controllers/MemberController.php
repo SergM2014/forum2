@@ -180,4 +180,11 @@ class MemberController extends Controller
         return redirect('/admin/member')->with('status', 'Member updated!');
     }
 
+    public function destroy($id)
+    {
+        $member = Member::find($id);
+        $member->delete();
+        return redirect('/admin/member')->with('status', 'Member deleted!');
+    }
+
 }

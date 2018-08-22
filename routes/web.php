@@ -100,4 +100,5 @@ Route::group(['middleware' => 'auth', 'prefix'=>'admin'], function(){
 
     Route::post('/member', 'MemberController@storeAdmin');
     Route::put('/member/{member}', 'MemberController@updateAdmin');
+    Route::delete('/member/{member}', 'MemberController@destroy');
 });
