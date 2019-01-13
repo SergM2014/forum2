@@ -51997,6 +51997,179 @@ document.body.addEventListener('keyup', function (e) {
     }
 });
 
+function alertWithClose(level, message) {
+    var alert = '<div id = "alert" class="alert alert-' + level + ' alert-dismissible fade show custom-alert" role="alert">\n        <strong>' + message + '!</strong> \n    <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n        <span aria-hidden="true">&times;</span>\n    </button>\n    </div>';
+
+    document.querySelector('.main-custom-container').insertAdjacentHTML('afterBegin', alert);
+    $('#alert').alert();
+}
+
+function alertWithoutClose(level, message) {
+    var alert = '<div id = "alert" class="alert alert-' + level + ' alert-dismissible fade show custom-alert" role="alert">\n        <strong>' + message + '!</strong> \n    \n</button>\n    </div>';
+
+    document.querySelector('.main-custom-container').insertAdjacentHTML('afterBegin', alert);
+    $('#alert').alert();
+
+    $("#alert").fadeTo(1000, 3000).slideUp(3000, function () {
+        $("#alert").alert('close');
+    });
+}
+
+function previewSearch() {
+    var searched = document.getElementById('searchField').value;
+
+    if (document.querySelector('#searchPreviewContainer')) document.querySelector('#searchPreviewContainer').remove();
+
+    var searchPreviewContainer = document.createElement('div');
+    searchPreviewContainer.id = "searchPreviewContainer";
+    searchPreviewContainer.className = "search-preview-container";
+
+    document.querySelector('#searchArea').prepend(searchPreviewContainer);
+    searchPreviewContainer.innerText = "Wait a bit! searchin now..";
+
+    axios({
+        method: 'post',
+        url: '/search',
+
+        data: { searched: searched }
+    }).then(function (response) {
+
+        searchPreviewContainer.innerHTML = response.data;
+    });
+}
+
+window.onload = function () {
+
+    if (document.getElementById('scrollToResponse')) {
+        var response = document.getElementById('scrollToResponse');
+        response.style.backgroundColor = '#d65339';
+        console.log(response);
+        location.hash = 'show';
+    }
+};
+
+document.body.addEventListener('click', function (e) {
+
+    if (e.target.id === "addCustomResponse") {
+
+        if (document.getElementById('alert')) document.getElementById('alert').remove();
+
+        var formData = new FormData(document.getElementById('addResponse'));
+
+        axios({
+            method: 'post',
+            url: '/response/store',
+
+            data: formData
+        }).then(function (response) {
+
+            alertWithClose('success', response.data.message);
+
+            //clearfy addresponse form
+            document.querySelector('#addResponseText').value = '';
+            document.querySelector('#parentId').value = "0";
+            document.querySelector('#responseToComment').innerHTML = '';
+            document.querySelector('#addResponseTitle').innerText = 'Add Comment!';
+        })
+        //catch validation errors
+        .catch(function (error) {
+
+            var errors = error.response.data.errors;
+
+            for (var key in errors) {
+                document.getElementById(key).classList.add('is-invalid');
+            }
+        });
+    }
+
+    if (e.target.classList.contains('addMemberResponseBtn')) {
+
+        $('html,body').animate({ scrollTop: document.body.scrollHeight }, "slow");
+
+        var id = e.target.closest('.response-block').dataset.responseId;
+
+        document.querySelector('#addResponseTitle').innerText = "Comment given response";
+
+        document.querySelector('#parentId').value = id;
+
+        axios({
+            method: 'post',
+            url: '/response/showResponseToComment',
+            data: { id: id }
+        }).then(function (response) {
+            document.querySelector('#responseToComment').innerHTML = response.data;
+        });
+    }
+
+    if (e.target.id === "closeResponseToBeCommented") {
+
+        document.querySelector('#responseToComment').innerHTML = '';
+        document.querySelector('#addResponseTitle').innerText = "Add Response";
+        document.querySelector('#parentId').value = "0";
+    }
+
+    if (e.target.id === "searchFieldBtn") {
+
+        previewSearch();
+    }
+
+    if (!e.target.closest('#searchArea') && document.querySelector('#searchPreviewContainer') != undefined) document.querySelector('#searchPreviewContainer').remove();
+
+    if (e.target.id === "addLike") {
+
+        var responseId = e.target.closest('.response-block').dataset.responseId;
+
+        axios({
+            method: 'post',
+            url: '/response/like',
+            data: { responseId: responseId }
+        }).then(function (response) {
+            if (response.data.error) return;
+            e.target.closest('.response-block').querySelector('.likesNumber').innerHTML = response.data.likesNumber;
+            alertWithoutClose('success', 'Your like is added!');
+        });
+    }
+
+    if (e.target.id === "addDislike") {
+
+        var _responseId = e.target.closest('.response-block').dataset.responseId;
+
+        axios({
+            method: 'post',
+            url: '/response/dislike',
+            data: { responseId: _responseId }
+        }).then(function (response) {
+            if (response.data.error) return;
+            e.target.closest('.response-block').querySelector('.dislikesNumber').innerHTML = response.data.dislikesNumber;
+            alertWithoutClose('success', 'Your dislike is added!');
+        });
+    }
+});
+
+document.querySelector("#searchField").addEventListener('keypress', function (e) {
+    e.preventDefault();
+    if (e.keyCode == 13) {
+        previewSearch();
+    }
+});
+
+window.Echo.channel('new-response').listen('ResponseWasAdded', function (e) {
+
+    var response = e.response;
+    var template = e.template;
+
+    var topicId = Number(document.getElementById('topicId').value);
+    var parentId = document.getElementById('parentId').value;
+
+    if (topicId !== response.topic_id) return;
+
+    var li = document.createElement('li');
+    li.className = "list-group-item  border border-secondary rounded";
+    li.innerHTML = template;
+
+    document.querySelector('[data-parent-id="' + parentId + '"]').append(li);
+});
+
 /***/ }),
 
 /***/ "./resources/assets/js/bootstrap.js":

@@ -92,8 +92,9 @@
     </main>
 </div>
 
-<script src="{{ mix('/js/app.js') }}"></script>
-<script src="/js/admin.js?ver=<?= time() ?>"></script>
-<script src="/js/uploadImage.js?ver=<?= time() ?>"></script>
+
+<script src="{{ mix('/js/admin.js') }}"></script>
+<script src="{{ mix('/js/uploadImage.js') }}"></script>
+
 </body>
 </html>
